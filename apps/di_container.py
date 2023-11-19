@@ -10,20 +10,17 @@ from config.settings import get_settings
 
 class Container(containers.DeclarativeContainer):
     wiring_config = containers.WiringConfiguration(modules=[".item.apis"])
-    settings = get_settings()
+    config = providers.Configuration()
 
     cache = providers.Singleton(
         Redis,
-        host=settings.REDIS_HOST,
-        port=settings.REDIS_PORT,
+        host=config.REDIS_HOST,
+        port=config.REDIS_PORT,
         decode_responses=True,
     )
     database = providers.Singleton(
         Database,
-        url=(
-            f"mysql+aiomysql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}"
-            f"@{settings.DATABASE_HOST}/{settings.DATABASE_NAME}"
-        )
+        url=config.DATABASE_URL,
     )
 
     # repositories
@@ -41,4 +38,8 @@ class Container(containers.DeclarativeContainer):
     )
 
 
-container = Container()
+def create_container(env_name: str = "default"):
+    container = Container()
+    container.config.from_dict(get_settings(env_name=env_name).model_dump())
+
+    return container

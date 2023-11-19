@@ -1,4 +1,4 @@
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 
 from pydantic_settings import BaseSettings
 
@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     DATABASE_USERNAME: str
     DATABASE_PASSWORD: str
     DATABASE_NAME: str
+    DATABASE_URL: str
 
     REDIS_HOST: str
     REDIS_PORT: int

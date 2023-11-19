@@ -2,7 +2,6 @@ from dependency_injector.wiring import inject, Provide
 from fastapi import APIRouter, Depends
 
 from apps.di_container import Container
-from apps.item.repositories import ItemRepository
 from apps.item.schemas import ItemRead, ItemCreate, ItemUpdate
 from apps.item.usecases import ItemUsecase
 
@@ -20,7 +19,7 @@ async def read_item(
     return item
 
 
-@router.post("/item/", response_model=ItemRead)
+@router.post("/item", response_model=ItemRead)
 @inject
 async def create_item(
         schema: ItemCreate,
