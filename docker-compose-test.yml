@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+#  fastapi-test:
+#    build: .
+#    container_name: fastapi-test
+##    restart: always
+#    ports:
+#      - "8000:8000"
+#    command: >
+#      pytest .
+#    depends_on:
+#      - mysql-test
+#      - redis-test
+
+  mysql-test:
+    image: mysql:8.0
+    container_name: mysql-test
+#    restart: always
+    ports:
+      - "13306:3306"
+    volumes:
+      - ./sql/:/docker-entrypoint-initdb.d/
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_USER=${DATABASE_USERNAME}
+      - MYSQL_PASSWORD=${DATABASE_USERNAME}
+
+  redis-test:
+    image: redis:alpine
+    container_name: redis-test
+#    restart: always
+    ports:
+      - "16379:6379"

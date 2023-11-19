@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "avikus-test"
+version = "0.1.0"
+description = ""
+authors = ["lim <limhg1210@gmail.com>"]
+readme = "README.md"
+packages = [{include = "avikus_test"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.104.1"
+uvicorn = "^0.24.0.post1"
+sqlalchemy = "^2.0.23"
+aiomysql = "^0.2.0"
+python-dotenv = "^1.0.0"
+pydantic-settings = "^2.1.0"
+greenlet = "^3.0.1"
+dependency-injector = "^4.41.0"
+redis = "^5.0.1"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.3"
+httpx = "^0.25.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
